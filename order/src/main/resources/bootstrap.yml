@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: order
+  cloud:
+    config:
+      profile: dev
+      discovery:
+        enabled: true
+        service-id: CONFIG
+  sleuth:
+    sampler:
+      probability: 1
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+
+
+
+
+
+
+
