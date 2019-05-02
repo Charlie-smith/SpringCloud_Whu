@@ -1,0 +1,247 @@
+游戏充值商城
+
+请求格式
+{
+	 
+}
+
+响应格式
+成功
+{
+	“code":0, "msg":"成功","data":{ }
+}
+失败
+{
+	“code":error_code, "msg":"错误信息","data":null
+}
+
+UserService（用户服务）
+
+发送邮箱验证码
+POST  /user/send/verification
+参数
+{
+	  "userEmail" : "867581452@qq.com"
+}
+返回
+{
+	“code":0, "msg":"成功","data":{ "verification":"339659"}
+}
+
+注册
+POST  /user/user_register
+参数
+{
+    "userEmail":"6987604@qq.com", "password":"123456" , "userName":"唐宗钰"
+}
+返回
+{
+    "code": 0,
+    "msg": "成功",
+    "data": {
+        "userId": "a5529794-c7e4-4bac-92ed-36f67ad7746a"
+    }
+}
+
+登陆
+POST /user/user_login
+参数
+{
+    "userEmail":"1327987604@qq.com", "password":"123456" 
+}
+返回
+{
+    "code": 0,
+    "msg": "成功",
+    "data": {
+        "userId": "5566"
+    }
+}
+
+退出登陆
+POST /user/logout
+查看用户是否登陆
+POST /user/is_login
+
+
+修改昵称或者密码
+POST /user/update
+参数
+{
+    "userId":"5566","userEmail":"1327987604@qq.com","user_name":"张三","password":"123456"
+}
+返回
+{
+    "code": 0,
+    "msg": "成功",
+    "data": {
+        "userId": "5566",
+        "userEmail": "1327987604@qq.com",
+        "password": "123456"
+    }
+}
+
+通过用户id获取用户信息
+POST /user/information
+参数
+{
+   "userId":"b96ee570-263e-4247-8fa3-62d6abd4b057"
+}
+返回
+{
+    "code": 0,
+    "msg": "成功",
+    "data": {
+        "userId": "b96ee570-263e-4247-8fa3-62d6abd4b057",
+        "userEmail": "7987604@qq.com",
+        "userName": "唐宗钰",
+        "password": "123456",
+        "createTime": "2019-04-19T18:44:16.000+0000",
+        "updateTime": "2019-04-19T18:44:16.000+0000"
+    }
+}
+
+ProductService（商品服务）
+
+获取商品列表
+POST /product/product_list
+参数
+{
+   "gameName":"地下城与勇士","page":"1","size":"10"
+}
+返回
+注：userId:是当前登陆用户的id  product_userId:是商品发布者的id，目前为系统发布固定为”system"
+{
+    "code": 0,
+    "msg": "成功",
+    "data": [
+        {
+            "productId": 1,
+            "productUserId": "system",
+            "productName": "dnf1000w金币",
+            "productPrice": 20,
+            "productStock": 98,
+            "productType": "0",
+            "productDescribe": "无",
+            "gameName": "地下城与勇士",
+            "gameServer": "河南二区",
+            "gameOperating": "PC",
+            "createTime": "2019-04-10T23:53:46.000+0000",
+            "updateTime": "2019-04-19T02:56:45.000+0000"
+        },
+        {
+            "productId": 2,
+            "productUserId": "system",
+            "productName": "dnf1000w金币",
+            "productPrice": 20,
+            "productStock": 100,
+            "productType": "0",
+            "productDescribe": "无",
+            "gameName": "地下城与勇士",
+            "gameServer": "跨三",
+            "gameOperating": "PC",
+            "createTime": "2019-04-10T23:59:37.000+0000",
+            "updateTime": "2019-04-10T23:59:37.000+0000"
+        }
+    ]
+}
+
+通过商品id获取商品详情
+POST /product/product_information
+参数
+{
+	"productId":"1"
+}
+返回
+{
+    "code": 0,
+    "msg": "成功",
+    "data": {
+        "productId": 1,
+        "productUserId": "system",
+        "productName": "dnf1000w金币",
+        "productPrice": 20,
+        "productStock": 98,
+        "productType": "0",
+        "productDescribe": "无",
+        "gameName": "地下城与勇士",
+        "gameServer": "河南二区",
+        "gameOperating": "PC",
+        "createTime": "2019-04-10T23:53:46.000+0000",
+        "updateTime": "2019-04-19T02:56:45.000+0000"
+    }
+}
+
+
+更新商品库存
+POST /product/update_stock
+参数
+{
+	"productId":"1","stockChange":"2"
+}
+返回
+{
+    "code": 0,
+    "msg": "成功",
+    "data": null
+}
+
+
+
+
+OrderService（订单服务）
+我的订单
+POST /order/myOrderList
+参数
+{
+    "userId":"5566","orderStatus":"0","page":"1","size":"10"
+}
+返回
+{
+    "code": 0,
+    "msg": "成功",
+    "data": [
+        {
+            "orderId": "3f68d48b-6e4a-48b9-98b6-4c164a73886b",
+            "updateTime": "2019-04-19T17:49:17.000+0000",
+            "productName": "dnf1000w金币",
+            "productPrice": 20,
+            "productNum": 2,
+            "orderStatus": "0"
+        },
+        {
+            "orderId": "4e9a7255-2552-4a0c-bbe1-777830ae94c1",
+            "updateTime": "2019-04-19T17:49:26.000+0000",
+            "productName": "dnf1000w金币",
+            "productPrice": 20,
+            "productNum": 2,
+            "orderStatus": "0"
+        }
+    ]
+}
+
+
+
+提交订单
+POST /order/order_create
+参数
+{
+		"productNum":"2","productId":"1",
+		"iphone":"155xxxx8678","qq":"132xxx7604","gameServer":"应用宝服",
+		"gameRoleName":"无","gameAccount":"132xxx7604","gamePassword":"xxxxx",
+		"gameRank":"95"
+
+}
+返回
+{
+    "code": 0,
+    "msg": "成功",
+    "data": "ea88c747-41ad-4e16-b11b-15122e8601dc"
+}
+
+
+
+
+
+
+
